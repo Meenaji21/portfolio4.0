@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sourabh Meena — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --gold: #c9a84c;
+    --gold-light: #e2c47a;
+    --text: #e8e4dc;
+    --muted: #7a7570;
+    --accent: #c9a84c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 60%; height: 100%;
+    background: radial-gradient(ellipse at 80% 40%, rgba(201,168,76,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 1.8rem;
+    border-radius: 2px;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name span { color: var(--gold); font-style: italic; }
+  .hero-role {
+    font-size: 1rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+  }
+  .hero-bio {
+    font-size: 0.95rem;
+    color: #9e9890;
+    max-width: 480px;
+    line-height: 1.85;
+    margin-bottom: 2.5rem;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: var(--gold);
+    color: #0d0d0d;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* hero right — avatar + stats */
+  .hero-right {
+    display: flex; flex-direction: column; align-items: center; gap: 2rem;
+  }
+  .avatar-ring {
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.25);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .avatar-ring::before {
+    content: '';
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+  .avatar-inner {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1f1f1f 0%, #2a2520 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    color: var(--gold);
+    font-style: italic;
+    letter-spacing: -0.02em;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    width: 100%; background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .stat {
+    background: var(--card);
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 4rem; }
+  .section-header {
+    margin-bottom: 3.5rem;
+  }
+  .section-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+  }
+  .divider {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    margin-top: 1rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .about-text p {
+    font-size: 0.95rem; color: #9e9890; line-height: 1.9; margin-bottom: 1.2rem;
+  }
+  .contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .contact-list li {
+    display: flex; align-items: center; gap: 0.9rem;
+    font-size: 0.88rem; color: var(--muted);
+  }
+  .contact-list .icon {
+    width: 34px; height: 34px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; color: var(--gold); flex-shrink: 0;
+  }
+  .contact-list a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .contact-list a:hover { color: var(--gold); }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .skill-card {
+    background: var(--card);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+  .skill-card:hover { background: #1f1f1f; }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .skill-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  .skill-bar-wrap { margin-top: 1rem; background: var(--border); height: 2px; }
+  .skill-bar { height: 100%; background: var(--gold); transition: width 1s ease; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--surface); }
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .project-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-type {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; display: block;
+  }
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400;
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+  }
+  .tag {
+    font-size: 0.7rem; padding: 0.25rem 0.7rem;
+    border: 1px solid var(--border); color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-timeline { display: flex; flex-direction: column; gap: 0; }
+  .edu-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 3rem; padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .edu-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--gold);
+    padding-top: 0.2rem;
+  }
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem; font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .edu-school { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .edu-grade {
+    display: inline-block; margin-top: 0.6rem;
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    padding: 0.2rem 0.8rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+  }
+
+  /* ── LEADERSHIP ── */
+  #leadership { background: var(--surface); }
+  .leader-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .leader-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    transition: border-color 0.3s;
+  }
+  .leader-card:hover { border-color: rgba(201,168,76,0.3); }
+  .leader-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; margin-bottom: 0.3rem;
+  }
+  .leader-org { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .leader-period { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.2rem; }
+  .leader-points { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .leader-points li {
+    font-size: 0.88rem; color: #9e9890; padding-left: 1rem; position: relative;
+  }
+  .leader-points li::before {
+    content: '—';
+    position: absolute; left: 0; color: var(--gold);
+  }
+
+  /* ── AWARDS ── */
+  .awards-row { display: flex; flex-direction: column; gap: 0; }
+  .award-item {
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 2rem; padding: 1.8rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .award-icon {
+    width: 52px; height: 52px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+  }
+  .award-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .award-year { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── LANGUAGES ── */
+  .lang-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .lang-pill {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 1.8rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .lang-name { font-size: 0.95rem; font-weight: 500; }
+  .lang-level { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.1em; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--surface);
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  #contact .section-header { text-align: center; }
+  #contact .divider { margin: 1rem auto 0; }
+  .contact-links {
+    display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 4rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    .hero-right { display: none; }
+    section { padding: 4rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .leader-grid { grid-template-columns: 1fr; }
+    .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SM</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag fade-up">Available for Opportunities</div>
+    <h1 class="hero-name fade-up delay-1">Sourabh<br/><span>Meena</span></h1>
+    <p class="hero-role fade-up delay-2">Banking · Customer Support · Web Development</p>
+    <p class="hero-bio fade-up delay-3">
+      Detail-oriented M.Sc. graduate with a strong foundation in mathematics and computer science.
+      Proven leader, tech enthusiast, and committed to operational excellence and customer satisfaction.
+    </p>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#projects" class="btn-outline">View Projects</a>
+    </div>
+  </div>
+  <div class="hero-right fade-up delay-2">
+    <div class="avatar-ring">
+      <div class="avatar-inner">S</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">M.Sc.</span>
+        <span class="stat-label">Computer Science</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">71%</span>
+        <span class="stat-label">B.Sc. Score</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Projects Built</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Leadership Roles</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-header">
+        <span class="section-tag">Who I Am</span>
+        <h2 class="section-title">Bridging Technology<br/>& People</h2>
+        <div class="divider"></div>
+      </div>
+      <p>
+        I am an enthusiastic and detail-oriented M.Sc. Computer Science graduate from Government College Chhachhrauli, Yamuna Nagar. I am seeking entry-level opportunities in banking, customer support, or IT where I can blend my technical and interpersonal strengths.
+      </p>
+      <p>
+        My academic journey has given me hands-on experience in front-end web development, database management, and problem-solving — while leadership roles as President of the Mathematics Society shaped my communication and organisational abilities.
+      </p>
+      <p>
+        I am adaptable, quick to learn new technologies, and driven by a genuine curiosity about AI and emerging tools.
+      </p>
+    </div>
+    <div>
+      <div class="section-header">
+        <span class="section-tag">Contact</span>
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="divider"></div>
+      </div>
+      <ul class="contact-list">
+        <li>
+          <span class="icon">📍</span>
+          <span>Sagam Vihar, Dausa / Railway Colony, Yamuna Nagar, Haryana</span>
+        </li>
+        <li>
+          <span class="icon">📞</span>
+          <a href="tel:+918950092989">+91-8950092989</a>
+        </li>
+        <li>
+          <span class="icon">✉</span>
+          <a href="mailto:sourabhmeena0007@gmail.com">sourabhmeena0007@gmail.com</a>
+        </li>
+        <li>
+          <span class="icon">in</span>
+          <a href="http://www.linkedin.com/in/sourabh-meena-536469231" target="_blank">linkedin.com/in/sourabh-meena-536469231</a>
+        </li>
+        <li>
+          <span class="icon">⌥</span>
+          <a href="https://github.com/Meenaji21" target="_blank">github.com/Meenaji21</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-tag">Capabilities</span>
+    <h2 class="section-title">Key Skills</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🤝</div>
+      <div class="skill-name">Customer Service & Communication</div>
+      <div class="skill-desc">Delivering excellent customer experiences through clear, empathetic communication.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🧠</div>
+      <div class="skill-name">Problem Solving & Critical Thinking</div>
+      <div class="skill-desc">Analytical mindset developed through mathematics and computer science studies.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🏦</div>
+      <div class="skill-name">Banking Operations</div>
+      <div class="skill-desc">Knowledgeable in retail branch banking processes, operational efficiency, and data integrity.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">Database Management</div>
+      <div class="skill-desc">SQL, MySQL, and MS Access — including CRUD operations and role-based access control.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">Front-End Web Design</div>
+      <div class="skill-desc">Building responsive interfaces using HTML, CSS, and JavaScript.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">AI Tools & Microsoft Office</div>
+      <div class="skill-desc">Proficient with AI productivity tools, MS Office Suite, and back-office support systems.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⏱️</div>
+      <div class="skill-name">Time Management & Multitasking</div>
+      <div class="skill-desc">Efficiently juggling multiple responsibilities while maintaining quality and deadlines.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:87%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📋</div>
+      <div class="skill-name">Back-Office Support</div>
+      <div class="skill-desc">Supporting operations with accurate record-keeping, documentation, and administrative tasks.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-tag">Work</span>
+    <h2 class="section-title">University Projects</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <span class="project-type">Team Project</span>
+      <h3 class="project-title">College Database System</h3>
+      <p class="project-desc">
+        Built a comprehensive database for managing college records, ensuring seamless data access and integrity. Implemented CRUD operations across multiple modules and enforced role-based access control to secure sensitive information.
+      </p>
+      <div class="project-tags">
+        <span class="tag">SQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">MS Access</span>
+        <span class="tag">CRUD</span>
+        <span class="tag">Access Control</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Personal Project</span>
+      <h3 class="project-title">College Website</h3>
+      <p class="project-desc">
+        Designed and built a fully responsive college website from scratch. Implemented a structured notes section to improve academic resource accessibility for students, focusing on clean UI and intuitive navigation.
+      </p>
+      <div class="project-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Responsive Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-tag">Academic Background</span>
+    <h2 class="section-title">Education</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="edu-timeline">
+    <div class="edu-item">
+      <div class="edu-year">2021 — 2023</div>
+      <div>
+        <h3 class="edu-degree">Master of Science — Computer Science</h3>
+        <p class="edu-school">Government College Chhachhrauli, Yamuna Nagar, Haryana</p>
+        <span class="edu-grade">69.76%</span>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2018 — 2021</div>
+      <div>
+        <h3 class="edu-degree">Bachelor of Science — Computer Science</h3>
+        <p class="edu-school">Government College Chhachhrauli, Yamuna Nagar, Haryana</p>
+        <span class="edu-grade">71.31%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="section-header">
+    <span class="section-tag">Experience</span>
+    <h2 class="section-title">Leadership Roles</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="leader-grid">
+    <div class="leader-card">
+      <h3 class="leader-role">President</h3>
+      <p class="leader-org">Mathematics Society</p>
+      <p class="leader-period">Government College Chhachhrauli · Aug 2019 – Mar 2021</p>
+      <ul class="leader-points">
+        <li>Led all society activities and organised academic seminars to enhance student engagement.</li>
+        <li>Strengthened leadership and communication skills through teamwork and event coordination.</li>
+      </ul>
+    </div>
+    <div class="leader-card">
+      <h3 class="leader-role">Vice President</h3>
+      <p class="leader-org">Physics Society</p>
+      <p class="leader-period">Government College Chhachhrauli · Sep 2019 – Mar 2021</p>
+      <ul class="leader-points">
+        <li>Assisted in organising events and workshops, fostering collaboration between faculty and students.</li>
+        <li>Developed strong organisational and interpersonal skills through hands-on coordination.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-header">
+    <span class="section-tag">Recognition</span>
+    <h2 class="section-title">Awards & Achievements</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="awards-row">
+    <div class="award-item">
+      <div class="award-icon">🥇</div>
+      <div>
+        <p class="award-name">1st Prize — Mathematics Quiz</p>
+        <p class="award-year">2018</p>
+      </div>
+    </div>
+    <div class="award-item">
+      <div class="award-icon">🥇</div>
+      <div>
+        <p class="award-name">1st Prize — Science Quiz</p>
+        <p class="award-year">2019</p>
+      </div>
+    </div>
+    <div class="award-item">
+      <div class="award-icon">🏅</div>
+      <div>
+        <p class="award-name">Consolation Prize — Computer & Science Exhibition</p>
+        <p class="award-year">2019</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Languages inline -->
+  <div style="margin-top: 4rem;">
+    <div class="section-header">
+      <span class="section-tag">Languages</span>
+      <h2 class="section-title">Communication</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="lang-row" style="margin-top:1.5rem;">
+      <div class="lang-pill">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Conversational</span>
+      </div>
+      <div class="lang-pill">
+        <span class="lang-name">Hindi</span>
+        <span class="lang-level">Fluent</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-tag">Let's Talk</span>
+    <h2 class="section-title">Open to Opportunities</h2>
+    <div class="divider"></div>
+  </div>
+  <p style="color:var(--muted); max-width:520px; margin: 1rem auto 0; font-size:0.95rem; line-height:1.8;">
+    Whether it's a role in banking, customer support, or technology — I'd love to hear from you.
+  </p>
+  <div class="contact-links">
+    <a href="mailto:sourabhmeena0007@gmail.com" class="btn-primary">Email Me</a>
+    <a href="http://www.linkedin.com/in/sourabh-meena-536469231" target="_blank" class="btn-outline">LinkedIn</a>
+    <a href="https://github.com/Meenaji21" target="_blank" class="btn-outline">GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 Sourabh Meena &nbsp;·&nbsp; Designed with care</p>
+</footer>
+
+<script>
+  // Intersection observer for skill bars
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar').forEach(bar => {
+          bar.style.width = bar.style.width;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.skills-grid').forEach(el => observer.observe(el));
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .edu-item, .leader-card, .award-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    revealObserver.observe(el);
+  });
+</script>
+</body>
+</html>
